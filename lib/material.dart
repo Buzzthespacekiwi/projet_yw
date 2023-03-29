@@ -133,6 +133,7 @@ class _ProgrammePageState extends State<ProgrammePage> {
     padding: const EdgeInsets.all(16),
     decoration: BoxDecoration(
       color: Colors.black.withOpacity(0.8),
+    ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -168,7 +169,6 @@ class _ProgrammePageState extends State<ProgrammePage> {
           ),
         ],
       ),
-    ),
     ),
     ): const SizedBox.shrink(),
     ),
@@ -213,7 +213,7 @@ class _ProgrammePageState extends State<ProgrammePage> {
                     IconButton(
                       onPressed: () => _pause(),
                       icon: const Icon(Icons.pause),
-                      color: Colors.white,
+                      color: Colors.black,
                     ),
                   ],
                 ),
