@@ -25,7 +25,7 @@ class Chrono extends StatefulWidget {
 
 class _ChronoState extends State<Chrono> {
 
-  int _counter = 5;
+  int _counter = 30;
   Timer? _timer;
   double _fraction = 1.0;
   int _milliseconds = 0;

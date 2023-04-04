@@ -94,6 +94,7 @@ class _ProgrammePageState extends State<ProgrammePage> {
 
 
   Widget _buildPauseMenu(BuildContext context) {
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -146,29 +147,42 @@ class _ProgrammePageState extends State<ProgrammePage> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
+    double textScaleFactor = screenWidth / 400;
+
     final exercice = widget.programme.exercices[_currentExerciceIndex];
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.programme.titre),
+        title: Text(
+          widget.programme.titre,
+          style: TextStyle(fontSize: 18 * textScaleFactor),
+        ),
       ),
       body: _isFinished
           ? Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('Bravo vous avez terminé le programme!'),
+             Text(
+              'Bravo vous avez terminé le programme!',
+              style: TextStyle(fontSize: 18 * textScaleFactor),
+            ),
             ElevatedButton(
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: const Text('Retour à la liste des programmes'),
+              child: Text(
+                'Retour à la liste des programmes',
+                style: TextStyle(fontSize: 16 * textScaleFactor),
+              ),
             ),
           ],
         ),
       )
           : _showRestScreen
-          ? Center(
+          ? const Center(
         child: Chrono()
       )
           : Stack(
