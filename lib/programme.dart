@@ -257,9 +257,12 @@ class _ProgrammePageState extends State<ProgrammePage> {
                 Expanded(
                   child: Container(
                     color: Colors.black,
-                    child: Image.asset(
-                      exercice.video,
-                      fit: BoxFit.cover,
+                    child: AspectRatio(
+                      aspectRatio: 16 / 9, // Choisissez le ratio d'aspect approprié pour la vidéo
+                      child: Image.asset(
+                        exercice.video,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),
