@@ -14,16 +14,18 @@ void main() {
 }
 */import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class Chrono extends StatefulWidget {
+  const Chrono({super.key});
+
+
   @override
   _ChronoState createState() => _ChronoState();
 }
 
 class _ChronoState extends State<Chrono> {
 
-  int _counter = 30;
+  int _counter = 5;
   Timer? _timer;
   double _fraction = 1.0;
   int _milliseconds = 0;
@@ -41,8 +43,8 @@ class _ChronoState extends State<Chrono> {
   }
 
   void _startTimer() {
-    const milliSec = const Duration(milliseconds: 1);
-    _timer = new Timer.periodic(
+    const milliSec = Duration(milliseconds: 10);
+    _timer = Timer.periodic(
       milliSec,
           (Timer timer) => setState(
             () {
@@ -55,12 +57,13 @@ class _ChronoState extends State<Chrono> {
             } else {
               _milliseconds -= 1;
             }
-            _fraction = (_counter * 100 + _milliseconds) / 3000.0;
+            _fraction = (_counter * 1000 + _milliseconds * 10) / 30000.0;
           }
         },
       ),
     );
   }
+
   void _addTime() {
     setState(() {
       if (_counter == 0 && _milliseconds == 0) {
@@ -83,6 +86,16 @@ class _ChronoState extends State<Chrono> {
     });
   }
 
+  void _terminateChrono() {
+    setState(() {
+      _timer?.cancel();
+      _counter = 0;
+      _milliseconds = 0;
+      _fraction = 0;
+    });
+  }
+
+
   @override
   void dispose() {
     _timer?.cancel();
@@ -92,12 +105,6 @@ class _ChronoState extends State<Chrono> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Repos'),
-        centerTitle: true,
-        backgroundColor: Color(0xff92140C),
-
-      ),
       backgroundColor: Colors.black,
       body: Center(
         child: Column(
@@ -114,10 +121,10 @@ class _ChronoState extends State<Chrono> {
                 ),
               ),
             ),
-            SizedBox(height: 20.0),
+            const SizedBox(height: 20.0),
             Text(
               timerString,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 48.0,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
@@ -126,6 +133,7 @@ class _ChronoState extends State<Chrono> {
           ],
         ),
       ),
+
       floatingActionButton: Align(
         alignment: Alignment.bottomCenter,
         child: Padding(
@@ -139,24 +147,31 @@ class _ChronoState extends State<Chrono> {
                     heroTag: 'subtract',
                     onPressed: _subtractTime,
                     tooltip: 'Moins',
-                    child: ImageIcon(
+                    backgroundColor: Colors.black,
+                    foregroundColor: Colors.green,
+                    child: const ImageIcon(
                       AssetImage('assets/images/MOINS.png'),
                       size: 24.0,
                     ),
-                    backgroundColor: Colors.black,
-                    foregroundColor: Colors.green,
                   ),
+                ),
+                IconButton(
+                  onPressed: _terminateChrono,
+                  tooltip: 'Terminer',
+                  icon: const Icon(Icons.double_arrow),
+                  color: Colors.green,
+                  iconSize: 48.0,
                 ),
                 FloatingActionButton(
                   heroTag: 'add',
                   onPressed: _addTime,
                   tooltip: 'Plus',
-                  child: ImageIcon(
+                  backgroundColor: Colors.black,
+                  foregroundColor: Colors.green,
+                  child: const ImageIcon(
                     AssetImage('assets/images/plus.png'),
                     size: 24.0,
                   ),
-                  backgroundColor: Colors.black,
-                  foregroundColor: Colors.green,
                 ),
               ],
             )

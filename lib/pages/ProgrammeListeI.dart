@@ -21,7 +21,7 @@ class _ProgramListIState extends State<ProgramListI> {
         itemCount: programs.length,
         itemBuilder: (BuildContext context, int index) {
           return Dismissible(
-            key: Key(programs[index].program.name),
+            key: Key(programs[index].program.titre),
             background: Container(
               color: Colors.red,
               alignment: Alignment.centerRight,
@@ -46,14 +46,14 @@ class _ProgramListIState extends State<ProgramListI> {
             ),
             child: Card(
               child: ListTile(
-                title: Text(programs[index].program.name),
+                title: Text(programs[index].program.titre),
                 leading: Icon(Icons.fitness_center),
                 onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) =>
-                          ProgramDescription(programs[index].program.name),
+                          ProgramDescription(programs[index].program.titre),
                     ),
                   );
                 },

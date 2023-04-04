@@ -1,14 +1,15 @@
-import 'package:flutter/material.dart';
-import '../pages/programList.dart';
+import 'package:projet_yw/exercice.dart';
+import 'package:projet_yw/programme.dart';
 
-List<Exercise> exerciseList = [
-  Exercise(name: 'Squats', sets: 3, reps: 12),
-  Exercise(name: 'pistol squats', sets: 3, reps: 10),
-  Exercise(name: 'squats saut', sets: 3, reps: 30),
+List<Exercice> exerciseList = [
+  Exercice(nom: 'curle', repetitions: 12, icone: "assets/images/pompes.png", video: "assets/video/pompes.gif"),
+  Exercice(nom: 'chine-ups', repetitions: 10, icone: "assets/images/pompes.png", video: "assets/video/pompes.gif"),
+  Exercice(nom: 'Push ups', repetitions: 30,icone: "assets/images/pompes.png", video: "assets/video/pompes.gif"),
 ];
 
-Program jambes = Program(
-  name: 'Jambes',
+
+Programme jambes = Programme(
+  titre: 'Jambes',
   repetitions: 6,
-  exercises: exerciseList,
+  exercices: exerciseList,
 );

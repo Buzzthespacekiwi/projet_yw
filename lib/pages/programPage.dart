@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'programList.dart';
+import 'package:projet_yw/programme.dart';
 
 class ProgramPage extends StatelessWidget {
-  final Program program;
+  final Programme program;
 
   ProgramPage({required this.program});
 
@@ -10,7 +11,7 @@ class ProgramPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(program.name),
+        title: Text(program.titre),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -24,11 +25,11 @@ class ProgramPage extends StatelessWidget {
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: program.exercises.length,
+              itemCount: program.exercices.length,
               itemBuilder: (context, index) {
                 return ListTile(
-                  title: Text(program.exercises[index].name),
-                  subtitle: Text('${program.exercises[index].sets} x ${program.exercises[index].reps}'),
+                  title: Text(program.exercices[index].nom),
+                  subtitle: Text('${program.exercices[index].repetitions}'),
                 );
               },
             ),
@@ -37,7 +38,12 @@ class ProgramPage extends StatelessWidget {
             padding: const EdgeInsets.all(16.0),
             child: ElevatedButton(
               onPressed: () {
-                // Naviguer vers la page de l'exercice
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProgrammePage(programme: program),
+                  ),
+                );
               },
               child: Text('Commencer le programme'),
               style: ButtonStyle(

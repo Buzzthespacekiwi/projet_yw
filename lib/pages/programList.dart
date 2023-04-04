@@ -1,25 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:projet_yw/exercice.dart';
+import 'package:projet_yw/programme.dart';
 
-
-class Program {
-  final String name;
-  final int repetitions;
-  final List<Exercise> exercises;
-
-  Program({required this.name, required this.repetitions, required this.exercises});
-}
-
-class Exercise {
-  final String name;
-  //final String description;
-  final int reps;
-  final int sets;
-
-  Exercise({required this.name, /*required this.description,*/ required this.reps, required this.sets});
-}
 
 class ProgramDetails extends StatelessWidget {
-  final Program program;
+  final Programme program;
 
   ProgramDetails({required this.program});
 
@@ -27,7 +12,7 @@ class ProgramDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(program.name),
+        title: Text(program.titre)
       ),
       body: Column(
         children: [
@@ -37,12 +22,12 @@ class ProgramDetails extends StatelessWidget {
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: program.exercises.length,
+              itemCount: program.exercices.length,
               itemBuilder: (BuildContext context, int index) {
                 return ListTile(
-                  title: Text(program.exercises[index].name),
+                  title: Text(program.exercices[index].nom),
                   //subtitle: Text(program.exercises[index].description),
-                  trailing: Text('${program.exercises[index].reps} x ${program.exercises[index].sets}'),
+                  trailing: Text('${program.exercices[index].repetitions}'),
                 );
               },
             ),
@@ -63,7 +48,7 @@ class ProgramDetails extends StatelessWidget {
 }
 
 class ProgramList extends StatelessWidget {
-  final List<Program> programs;
+  final List<Programme> programs;
 
   ProgramList({required this.programs});
 
@@ -77,7 +62,7 @@ class ProgramList extends StatelessWidget {
         itemCount: programs.length,
         itemBuilder: (BuildContext context, int index) {
           return ListTile(
-            title: Text(programs[index].name),
+            title: Text(programs[index].titre),
             onTap: () {
               Navigator.push(
                 context,
