@@ -92,7 +92,6 @@ class _ProgramListEState extends State<ProgramListE> {
   }
 }
 
-
 class ProgramDescription extends StatelessWidget {
   final Programme programme;
 
@@ -110,7 +109,7 @@ class ProgramDescription extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 16.0),
-            /* Padding(
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Text(
                 "Images",
@@ -119,17 +118,17 @@ class ProgramDescription extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-            ),*/
+            ),
             SizedBox(height: 8.0),
             SizedBox(
-              height: 400.0,
+              height: 150.0,
               child: ListView.builder(
                 itemCount: programme.images?.length ?? 0,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (BuildContext context, int index) {
                   return Padding(
                     padding: EdgeInsets.all(8.0),
-                    child: Image.asset(programme.images![index]),
+                    child: Image.network(programme.images![index]),
                   );
                 },
               ),
@@ -156,4 +155,3 @@ class ProgramDescription extends StatelessWidget {
     );
   }
 }
-
