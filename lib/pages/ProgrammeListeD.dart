@@ -39,9 +39,23 @@ class _ProgramListDState extends State<ProgramListD> {
               alignment: Alignment.centerLeft,
               child: Padding(
                 padding: const EdgeInsets.only(left: 16.0),
-                child: Icon(
-                  Icons.description,
-                  color: Colors.white,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Spacer(),
+                    Icon(
+                      Icons.description,
+                      color: Colors.white,
+                    ),
+                    SizedBox(width: 8.0),
+                    Text(
+                      'Description  ',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
