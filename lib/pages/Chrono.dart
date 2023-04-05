@@ -16,7 +16,9 @@ void main() {
 import 'package:flutter/material.dart';
 
 class Chrono extends StatefulWidget {
-  const Chrono({super.key});
+  final VoidCallback onFinished;
+
+  const Chrono({super.key,  required this.onFinished});
 
 
   @override
@@ -50,6 +52,7 @@ class _ChronoState extends State<Chrono> {
             () {
           if (_counter < 1 && _milliseconds == 0) {
             timer.cancel();
+            widget.onFinished();
           } else {
             if (_milliseconds == 0) {
               _counter -= 1;
