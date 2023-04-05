@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'programList.dart';
 import 'package:projet_yw/programme.dart';
 
 class ProgramPage extends StatelessWidget {
   final Programme program;
 
-  ProgramPage({required this.program});
+  const ProgramPage({super.key, required this.program});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +19,7 @@ class ProgramPage extends StatelessWidget {
             padding: const EdgeInsets.all(16.0),
             child: Text(
               '${program.repetitions} répétitions du circuit',
-              style: TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 20),
             ),
           ),
           Expanded(
@@ -45,10 +44,10 @@ class ProgramPage extends StatelessWidget {
                   ),
                 );
               },
-              child: Text('Commencer le programme'),
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Color(0xff92140C)),
+                backgroundColor: MaterialStateProperty.all<Color>(const Color(0xff92140C)),
               ),
+              child: const Text('Commencer le programme'),
             ),
           ),
         ],
