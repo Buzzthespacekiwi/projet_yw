@@ -52,8 +52,8 @@ class _ProgramListEState extends State<ProgramListE> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>
-                          ProgramDescription(programs[index].program.titre),
+                      builder: (context) => programs[index],
+
                     ),
                   );
                 },
@@ -65,7 +65,8 @@ class _ProgramListEState extends State<ProgramListE> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => programs[index],
+                    builder: (context) =>
+                    ProgramDescription(programs[index].program.titre),
                   ),
                 );
                 return false;
