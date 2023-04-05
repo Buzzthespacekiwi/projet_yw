@@ -3,8 +3,8 @@ import 'package:projet_yw/programme.dart';
 
 List<Exercice> exerciseList = [
   Exercice(nom: 'pull ups', repetitions: 10, icone: "assets/images/traction.png", video: "assets/video/traction.gif"),
-  Exercice(nom: 'push ups', repetitions: 8, icone: "assets/images/pompes.png", video: "assets/video/pompes.gif"),
-  Exercice(nom: 'Dips', repetitions: 5,icone: "assets/images/dips.png", video: "assets/video/dips.gif"),
+  Exercice(nom: 'push ups', repetitions: 8, icone: "assets/images/pompes.png", video: "assets/video/pompe2.gif"),
+  Exercice(nom: 'Dips', repetitions: 5,icone: "assets/images/dips.png", video: "assets/video/dips2.gif"),
   Exercice(nom: 'Gainage', duree: Duration(seconds: 10),icone: "assets/images/pompes.png", video: "assets/video/gainage.jpg"),
 
 ];
