@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projet_yw/exercice.dart';
+import 'dart:async';
 import 'package:projet_yw/pages/Chrono.dart';
 
 class Programme {
@@ -30,8 +31,16 @@ class _ProgrammePageState extends State<ProgrammePage> {
   bool _isFinished = false;
   bool _showRestScreen = false;
   bool _showEndOfRepetitionScreen = false;
+  Timer? _exerciseTimer;
+  Duration? _remainingTime;
+
 
   void _nextExercice() {
+    if (widget.programme.exercices[_currentExerciceIndex].duree != null) {
+      setState(() {
+        _remainingTime = widget.programme.exercices[_currentExerciceIndex].duree;
+      });
+    }
     if (_currentExerciceIndex < widget.programme.exercices.length - 1) {
       setState(() {
         _showRestScreen = true;
@@ -64,6 +73,65 @@ class _ProgrammePageState extends State<ProgrammePage> {
       _currentExerciceIndex++;
     });
   }
+
+  void _startExerciseTimer() {
+    _remainingTime = widget.programme.exercices[_currentExerciceIndex].duree;
+    _exerciseTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        if (_remainingTime!.inSeconds == 1) {
+          timer.cancel();
+          _exerciseTimer = null;
+          _nextExercice();
+        } else {
+          _remainingTime = _remainingTime! - const Duration(seconds: 1);
+        }
+      });
+    });
+  }
+
+  void _pauseExerciseTimer() {
+    setState(() {
+      _exerciseTimer?.cancel();
+      _exerciseTimer = null;
+    });
+  }
+
+
+  Widget _buildExerciseTimerButton() {
+    return Column(
+      children: [
+        Text(
+          _remainingTime != null
+              ? '${_remainingTime!.inMinutes.toString().padLeft(2, '0')}:${(_remainingTime!.inSeconds % 60).toString().padLeft(2, '0')}'
+              : '',
+          style: const TextStyle(
+            color: Colors.black,
+            fontSize: 42,
+          ),
+        ),
+        if (_exerciseTimer == null || !_exerciseTimer!.isActive)
+          IconButton(
+            onPressed: () {
+              _startExerciseTimer();
+            },
+            icon: const Icon(Icons.play_arrow),
+            color: Colors.black,
+            iconSize: 32,
+          )
+        else
+          IconButton(
+            onPressed: () {
+              _pauseExerciseTimer();
+            },
+            icon: const Icon(Icons.pause),
+            color: Colors.black,
+            iconSize: 32,
+          ),
+      ],
+    );
+  }
+
+
 
   Widget _buildEndOfRepetitionScreen() {
     return Center(
@@ -263,22 +331,26 @@ class _ProgrammePageState extends State<ProgrammePage> {
                 ),
               ),
             ),
-            // Bouton validation
-            exercice.repetitions != null
-                ? Container(
-              padding: const EdgeInsets.all(16),
-              child: IconButton(
-                onPressed: () {
-                  _nextExercice();
-                  setState(() {});
-                },
-                icon: const Icon(Icons.double_arrow),
-                color: Colors.black,
-                iconSize: 32,
-              ),
-            )
-                : const SizedBox.shrink(),
-          ],
+      // Bouton validation / chronomètre
+      exercice.repetitions != null
+          ? Container(
+        padding: const EdgeInsets.all(16),
+        child: IconButton(
+          onPressed: () {
+            _nextExercice();
+            setState(() {});
+          },
+          icon: const Icon(Icons.double_arrow),
+          color: Colors.black,
+          iconSize: 32,
+        ),
+      )
+          : Container(
+        padding: const EdgeInsets.all(16),
+        child: _buildExerciseTimerButton(),
+      ),
+
+    ],
         ),
       ),
     ],
