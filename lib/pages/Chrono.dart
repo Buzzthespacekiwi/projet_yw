@@ -91,7 +91,6 @@ class _ChronoState extends State<Chrono> {
 
   void _terminateChrono() {
     setState(() {
-      _timer?.cancel();
       _counter = 0;
       _milliseconds = 0;
       _fraction = 0;
@@ -158,12 +157,15 @@ class _ChronoState extends State<Chrono> {
                     ),
                   ),
                 ),
-                IconButton(
+                FloatingActionButton(
                   onPressed: _terminateChrono,
                   tooltip: 'Terminer',
-                  icon: const Icon(Icons.double_arrow),
-                  color: Colors.green,
-                  iconSize: 48.0,
+                  child: const Icon(Icons.double_arrow),
+                  backgroundColor: Colors.green,
+                  foregroundColor: Colors.white,
+                  mini: false,
+                  elevation: 2.0,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
                 ),
                 FloatingActionButton(
                   heroTag: 'add',
