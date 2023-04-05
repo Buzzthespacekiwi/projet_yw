@@ -11,4 +11,8 @@ Programme chest_routine = Programme(
   titre: 'Chest routine',
   repetitions: 3,
   exercices: exerciseList,
+  images: [
+    "assets/images/pec.jpg",
+  ],
+  description: 'ce programme va vous permettre de développer vos pec ',
 );

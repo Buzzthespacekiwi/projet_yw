@@ -14,7 +14,7 @@ class YWWorkoutPage extends StatelessWidget {
             width: double.infinity,
           ),
           Container(
-            color: Colors.white.withOpacity(0.4),
+            color: Colors.black.withOpacity(0.4),
             height: double.infinity,
             width: double.infinity,
           ),
@@ -25,7 +25,7 @@ class YWWorkoutPage extends StatelessWidget {
               Text(
                 'Y & W',
                 style: TextStyle(
-                  color: Color(0xff92140C),
+                  color: Color(0xFFFFFFFF),
                   fontSize: 80,
                   fontWeight: FontWeight.bold,
                 ),
@@ -34,7 +34,7 @@ class YWWorkoutPage extends StatelessWidget {
               Text(
                 'WORKOUT',
                 style: TextStyle(
-                  color: Color(0xff92140C),
+                  color: Color(0xFFFFFFFF),
                   fontSize: 40,
                   fontWeight: FontWeight.bold,
                 ),

@@ -7,12 +7,16 @@ class Programme {
   final String titre;
   final int repetitions;
   final List<Exercice> exercices;
+  final List<String>? images;
+  final String? description;
 
 
   Programme({
     required this.titre,
     required this.repetitions,
     required this.exercices,
+    this.images,
+    this.description,
   });
 }
 

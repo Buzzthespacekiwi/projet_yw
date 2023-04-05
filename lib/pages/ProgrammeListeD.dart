@@ -5,6 +5,7 @@ import 'programPage.dart';
 import '../programmeD/pec.dart';
 import '../programmeD/biceps.dart';
 import '../programmeD/jambes.dart';
+import '../programme.dart';
 
 
 class ProgramListD extends StatefulWidget {
@@ -81,7 +82,7 @@ class _ProgramListDState extends State<ProgramListD> {
                   context,
                   MaterialPageRoute(
                     builder: (context) =>
-                    ProgramDescription(programs[index].program.titre),
+                        ProgramDescription(programs[index].program),
 
                   ),
                 );
@@ -96,20 +97,63 @@ class _ProgramListDState extends State<ProgramListD> {
 }
 
 class ProgramDescription extends StatelessWidget {
-  final String programName;
+  final Programme programme;
 
-  ProgramDescription(this.programName);
+  ProgramDescription(this.programme);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(programName),
+        title: Text(programme.titre),
         centerTitle: true,
       ),
-      body: Container(
-        child: Center(
-          child: Text('Description du programme $programName'),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 16.0),
+           /* Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              child: Text(
+                "Images",
+                style: TextStyle(
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),*/
+            SizedBox(height: 8.0),
+            SizedBox(
+              height: 400.0,
+              child: ListView.builder(
+                itemCount: programme.images?.length ?? 0,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (BuildContext context, int index) {
+                  return Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Image.asset(programme.images![index]),
+                  );
+                },
+              ),
+            ),
+            SizedBox(height: 16.0),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              child: Text(
+                "Description",
+                style: TextStyle(
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            SizedBox(height: 8.0),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              child: Text(programme.description ?? ""),
+            ),
+          ],
         ),
       ),
     );

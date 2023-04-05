@@ -3,7 +3,7 @@ import 'package:projet_yw/programmeE/pushup_routine.dart';
 import 'programPage.dart';
 import '../programmeE/abdos.dart';
 import '../programmeE/cant_walk.dart';
-
+import '../programme.dart';
 
 class ProgramListE extends StatefulWidget {
   @override
@@ -12,7 +12,6 @@ class ProgramListE extends StatefulWidget {
 
 class _ProgramListEState extends State<ProgramListE> {
   final List<ProgramPage> programs = [ProgramPage(program: cant_walk), ProgramPage(program: pushup_routine)];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,7 +66,6 @@ class _ProgramListEState extends State<ProgramListE> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => programs[index],
-
                     ),
                   );
                 },
@@ -80,7 +78,8 @@ class _ProgramListEState extends State<ProgramListE> {
                   context,
                   MaterialPageRoute(
                     builder: (context) =>
-                    ProgramDescription(programs[index].program.titre),
+                        ProgramDescription(programs[index].program),
+
                   ),
                 );
                 return false;
@@ -93,23 +92,68 @@ class _ProgramListEState extends State<ProgramListE> {
   }
 }
 
-class ProgramDescription extends StatelessWidget {
-  final String programName;
 
-  ProgramDescription(this.programName);
+class ProgramDescription extends StatelessWidget {
+  final Programme programme;
+
+  ProgramDescription(this.programme);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(programName),
+        title: Text(programme.titre),
         centerTitle: true,
       ),
-      body: Container(
-        child: Center(
-          child: Text('Description du programme $programName'),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 16.0),
+            /* Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              child: Text(
+                "Images",
+                style: TextStyle(
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),*/
+            SizedBox(height: 8.0),
+            SizedBox(
+              height: 400.0,
+              child: ListView.builder(
+                itemCount: programme.images?.length ?? 0,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (BuildContext context, int index) {
+                  return Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Image.asset(programme.images![index]),
+                  );
+                },
+              ),
+            ),
+            SizedBox(height: 16.0),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              child: Text(
+                "Description",
+                style: TextStyle(
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            SizedBox(height: 8.0),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              child: Text(programme.description ?? ""),
+            ),
+          ],
         ),
       ),
     );
   }
 }
+
