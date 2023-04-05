@@ -39,9 +39,6 @@ class _ProgrammePageState extends State<ProgrammePage> {
     } else {
       if (_totalRepetitions < widget.programme.repetitions - 1) {
         setState(() {
-          _currentExerciceIndex = 0;
-          _totalRepetitions++;
-          _showRestScreen = false;
           _showEndOfRepetitionScreen = true;
         });
       } else {
@@ -50,6 +47,14 @@ class _ProgrammePageState extends State<ProgrammePage> {
         });
       }
     }
+  }
+
+  void _startNextRepetition() {
+    setState(() {
+      _currentExerciceIndex = 0;
+      _totalRepetitions++;
+      _showEndOfRepetitionScreen = false;
+    });
   }
 
 
@@ -75,10 +80,7 @@ class _ProgrammePageState extends State<ProgrammePage> {
             children: [
               IconButton(
                 onPressed: () {
-                  setState(() {
-                    _showEndOfRepetitionScreen = false;
-                    _nextExercice();
-                  });
+                  _startNextRepetition();
                 },
                 icon: const Icon(Icons.double_arrow),
                 iconSize: 48,
@@ -98,6 +100,7 @@ class _ProgrammePageState extends State<ProgrammePage> {
       ),
     );
   }
+
 
 
   Widget _buildPauseMenu(BuildContext context) {
