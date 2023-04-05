@@ -33,6 +33,9 @@ class _ProgrammePageState extends State<ProgrammePage> {
   bool _showEndOfRepetitionScreen = false;
   Timer? _exerciseTimer;
   Duration? _remainingTime;
+  bool _showRepetitionsLeft = false;
+  bool _showContinuePrompt = false;
+
 
 
   void _nextExercice() {
@@ -138,31 +141,47 @@ class _ProgrammePageState extends State<ProgrammePage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text(
-            'Fin de la répétition',
-            style: TextStyle(fontSize: 24),
-          ),
+          if (!_showRepetitionsLeft && !_showContinuePrompt)
+            const Text(
+              'Fin de la répétition',
+              style: TextStyle(fontSize: 24),
+            ),
+          if (_showRepetitionsLeft)
+            Text(
+              'Il vous reste ${widget.programme.repetitions - _totalRepetitions} répétitions',
+              style: const TextStyle(fontSize: 24),
+            ),
+          if (_showContinuePrompt)
+            const Text(
+              'Souhaitez-vous continuer?',
+              style: TextStyle(fontSize: 24),
+            ),
           const SizedBox(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              IconButton(
-                onPressed: () {
-                  _startNextRepetition();
-                },
-                icon: const Icon(Icons.double_arrow),
-                iconSize: 48,
-              ),
-              const SizedBox(width: 20),
-              IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  Navigator.pop(context);
-                },
-                icon: const Icon(Icons.stop),
-                iconSize: 48,
-              ),
-            ],
+          IconButton(
+            onPressed: () {
+              if (!_showRepetitionsLeft) {
+                setState(() {
+                  _showRepetitionsLeft = true;
+                });
+                Future.delayed(const Duration(seconds: 2), () {
+                  setState(() {
+                    _showContinuePrompt = true;
+                  });
+                });
+              } else {
+                _startNextRepetition();
+              }
+            },
+            icon: const Icon(Icons.double_arrow),
+            iconSize: 48,
+          ),
+          IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+              Navigator.pop(context);
+            },
+            icon: const Icon(Icons.stop),
+            iconSize: 48,
           ),
         ],
       ),
@@ -171,36 +190,7 @@ class _ProgrammePageState extends State<ProgrammePage> {
 
 
 
-  Widget _buildPauseMenu(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        ElevatedButton(
-          onPressed: () {
-            Navigator.pop(context);
-            Navigator.pop(context);
-          },
-          child: const Text('Quitter le programme'),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: const Text('Reprendre'),
-        ),
-      ],
-    );
-  }
 
-  void _pause() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Pause'),
-        content: _buildPauseMenu(context),
-      ),
-    );
-  }
 
 
 
@@ -300,21 +290,25 @@ class _ProgrammePageState extends State<ProgrammePage> {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      Text(
-                        '${exercice.repetitions} Répétitions ',
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
+                      if (exercice.repetitions != null)
+                        Text(
+                          '${exercice.repetitions} Répétitions ',
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                          ),
                         ),
-                      ),
+                      if (exercice.duree != null)
+                        Text(
+                          'Durée: ${exercice.duree!.inSeconds} secondes',
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                          ),
+                        ),
                     ],
                   ),
-                  const Spacer(),
-                  IconButton(
-                    onPressed: () => _pause(),
-                    icon: const Icon(Icons.pause),
-                    color: Colors.black,
-                  ),
+
                 ],
               ),
             ),
