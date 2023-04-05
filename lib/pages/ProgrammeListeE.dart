@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:projet_yw/programmeE/pushup_routine.dart';
 import 'programPage.dart';
 import '../programmeE/abdos.dart';
-import '../programmeE/epaule.dart';
+import '../programmeE/cant_walk.dart';
 
 
 class ProgramListE extends StatefulWidget {
@@ -10,8 +11,7 @@ class ProgramListE extends StatefulWidget {
 }
 
 class _ProgramListEState extends State<ProgramListE> {
-  // final List<String> programs = ['pec', 'dos', 'biceps', 'triceps', 'jambes'];
-  final List<ProgramPage> programs = [ProgramPage(program: abs), ProgramPage(program: epaule)];
+  final List<ProgramPage> programs = [ProgramPage(program: cant_walk), ProgramPage(program: pushup_routine)];
 
   @override
   Widget build(BuildContext context) {

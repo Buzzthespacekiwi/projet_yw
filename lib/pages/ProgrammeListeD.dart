@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:projet_yw/programmeD/Chest_routine.dart';
+import 'package:projet_yw/programmeD/back_biceps.dart';
 import 'programPage.dart';
 import '../programmeD/pec.dart';
 import '../programmeD/biceps.dart';
@@ -11,8 +13,7 @@ class ProgramListD extends StatefulWidget {
 }
 
 class _ProgramListDState extends State<ProgramListD> {
- // final List<String> programs = ['pec', 'dos', 'biceps', 'triceps', 'jambes'];
-  final List<ProgramPage> programs = [ProgramPage(program: pec), ProgramPage(program: jambes), ProgramPage(program: biceps)];
+  final List<ProgramPage> programs = [ProgramPage(program: back_biceps), ProgramPage(program: chest_routine)];
 
   @override
   Widget build(BuildContext context) {
